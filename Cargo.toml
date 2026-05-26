@@ -1,0 +1,42 @@
+[package]
+name = "tautomorphism"
+version = "0.7.1"
+edition = "2021"
+license = "MIT"
+description = "Tautomorphism: compact selected-text translator for Wayland/Hyprland"
+
+[lib]
+name = "tautomorphism"
+path = "src/lib.rs"
+
+[[bin]]
+name = "tautomorphism"
+path = "src/bin/tautomorphism.rs"
+
+[[bin]]
+name = "tautomorphism-config"
+path = "src/bin/tautomorphism-config.rs"
+
+[dependencies]
+anyhow = "1"
+dirs = "5"
+html-escape = "0.2"
+md5 = "0.7"
+reqwest = { version = "0.12", features = ["blocking", "json", "rustls-tls"], default-features = false }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+urlencoding = "2"
+gtk4 = { version = "0.10", package = "gtk4" }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
+overflow-checks = false
+incremental = false
+
+[profile.release.package."*"]
+opt-level = 3
+codegen-units = 1
